@@ -11,6 +11,14 @@ const RequestDissertation = sequelize.define("requests", {
 		type: DataTypes.ENUM("pending", "approved", "rejected"),
 		defaultValue: "pending",
 	},
+	title: {
+		type: DataTypes.STRING,
+		allowNull: true,
+	},
+	description: {
+		type: DataTypes.TEXT,
+		allowNull: true,
+	},
 	justification: {
 		type: DataTypes.STRING,
 		allowNull: true,
