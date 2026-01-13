@@ -55,26 +55,28 @@ async function seed() {
 
     console.log("✅ Studenți creați");
 
-    // 📅 Sesiuni (legate de profesori)
-    await Session.bulkCreate([
-      {
-        startDate: new Date("2026-01-10"),
-        endDate: new Date("2026-01-15"),
-        professorId: professors[0].id,
-      },
-      {
-        startDate: new Date("2026-02-01"),
-        endDate: new Date("2026-02-05"),
-        professorId: professors[1].id,
-      },
-      {
-        startDate: new Date("2026-03-01"),
-        endDate: new Date("2026-03-10"),
-        professorId: professors[2].id,
-      },
-    ]);
+    // 📅 Sesiuni – 2 pentru fiecare profesor
+    const sessions = [];
 
-    console.log("✅ Sesiuni create");
+    professors.forEach((professor, index) => {
+      // sesiunea 1
+      sessions.push({
+        professorId: professor.id,
+        startDate: new Date(2026, index, 1),
+        endDate: new Date(2026, index, 5),
+      });
+
+      // sesiunea 2
+      sessions.push({
+        professorId: professor.id,
+        startDate: new Date(2026, index, 10),
+        endDate: new Date(2026, index, 15),
+      });
+    });
+
+    await Session.bulkCreate(sessions);
+
+    console.log("✅ 2 sesiuni create pentru fiecare profesor");
 
     process.exit();
   } catch (error) {
